@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
+    public PlayerActions.OnFootActions onFoot;
+    //
     PlayerActions PlayerInput;
-    PlayerActions.OnFootActions onFoot;
     PlayMotor playerMotor;
     PlayerLook look;
     void Awake ()

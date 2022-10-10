@@ -13,11 +13,12 @@ public class PlayerLook : MonoBehaviour
     {
         float MouseX = input.x;
         float MouseY = input.y;
-        //vertical Look (up down)
-        XRotation = (MouseY * Time.deltaTime) * xSensitivity;
+        XRotation -= (MouseY * Time.deltaTime) * ySensitivity;
         XRotation = Mathf.Clamp(XRotation, -80f, 80f);
+
+        //Camera vertical Look (up down)
         cam.transform.localRotation = Quaternion.Euler(XRotation,0,0);
-        //Horizontal Look (left right)
+        //player Horizontal Look  (left right)
         transform.Rotate(Vector3.up * (MouseX * Time.deltaTime) * xSensitivity);
 
     }
