@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class HealBar : MonoBehaviour
 {
+    [Header("Health bar")]
     float heal;
     float lerpTimer;
+    //
+        
     //
     [SerializeField] float maxHeal = 1000f;
     [SerializeField] float chipSpeed = 2f;
@@ -14,11 +17,21 @@ public class HealBar : MonoBehaviour
     [SerializeField] Image backHealBar;
     [SerializeField] Image frontHeart;
     [SerializeField] Text txtHeal;
+    [SerializeField] Text txtHealAmount;
+    [SerializeField] bool isTesting;
 
     //
+    [Header("Damage Overlay")]
+    public Image overlay; // game overlay game object
+    public float Duration;
+    public float fadeSpeed;// time image fade;
+    //
+    float durationTimer; //Timer to check against the duration
     void Start()
     {
         heal = maxHeal;
+        overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0);
+
     }
 
     // Update is called once per frame
@@ -26,16 +39,40 @@ public class HealBar : MonoBehaviour
     {
         heal = Mathf.Clamp(heal, 0, maxHeal);
         UpdateHealUI();
-        if (Input.GetKey(KeyCode.DownArrow))
+        Test();
+        DamageOverlay();
+    }
+    //
+    void Test()
+    {
+        if (isTesting)
         {
-            TakeDamage(Random.Range(5, 10));
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                TakeDamage(Random.Range(5, 10));
+            }
+            else if (Input.GetKey(KeyCode.UpArrow))
+            {
+                RestoreHealth(Random.Range(5, 10));
+            }
         }
-        else if(Input.GetKey(KeyCode.UpArrow))
+       
+    }
+    //
+   void DamageOverlay()
+    {
+        if(overlay.color.a > 0)
         {
-            RestoreHealth(Random.Range(5, 10));
+            durationTimer += Time.deltaTime;
+            if(durationTimer > Duration)
+            {
+                //fade image
+                float tempAlpha = overlay.color.a;
+                tempAlpha -= Time.deltaTime * fadeSpeed;
+                overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, tempAlpha);
+            }
         }
     }
-
     // update heal bar
      void UpdateHealUI()
     {
@@ -65,6 +102,7 @@ public class HealBar : MonoBehaviour
         //update heart
         frontHeart.fillAmount = healFraction;
         txtHeal.text = healFraction .ToString("P");
+        txtHealAmount.text = heal.ToString("#,##0") + "/" + maxHeal.ToString("#,###0");
     }
   
     public void TakeDamage(float damage)
@@ -72,6 +110,9 @@ public class HealBar : MonoBehaviour
         //Debug.Log("TAKEN dmg");
         heal -= damage;
         lerpTimer = 0f;
+        durationTimer = 0;
+        overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0.8509804f);
+
     }
     public void RestoreHealth(float healAmount)
     {
@@ -80,5 +121,11 @@ public class HealBar : MonoBehaviour
         lerpTimer = 0f;
     }
 
+   public bool isTestMode()
+    {
+        return isTesting;
+    }
    
+
+
 }

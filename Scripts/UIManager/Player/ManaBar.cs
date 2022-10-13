@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExpBar : MonoBehaviour
+public class ManaBar : MonoBehaviour
 {
     float Mana;
     float LerpTimer;
     public float maxMana = 500f;
     //
+    HealBar healBar;
+    //
     [SerializeField] float chipSpeed = 5f;
     [SerializeField] Image frontManaBar;
     [SerializeField] Image backManaBar;
-
+    [SerializeField] Text txtManaAmount;
     // Start is called before the first frame update
     void Start()
     {
         Mana = maxMana;
+        healBar =  GetComponent<HealBar>();
     }
 
     // Update is called once per frame
@@ -29,13 +32,18 @@ public class ExpBar : MonoBehaviour
 
     void ManaTest()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (healBar == null) return;
+        if (healBar.isTestMode())
         {
-            TakeDownMana(Random.Range(5,10));
-        }else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            RestoreMana(Random.Range(5, 10));
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                TakeDownMana(Random.Range(5, 10));
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                RestoreMana(Random.Range(5, 10));
 
+            }
         }
     }
 
@@ -61,7 +69,8 @@ public class ExpBar : MonoBehaviour
             LerpTimer += Time.deltaTime;
             frontManaBar.fillAmount = Mathf.Lerp(ExpFront, backManaBar.fillAmount, LerpTimer);
         }
-
+        //update text
+        txtManaAmount.text = Mana.ToString("#,###0") + "/" + maxMana.ToString("#,###0");
     }
 
     public void TakeDownMana(float mana)

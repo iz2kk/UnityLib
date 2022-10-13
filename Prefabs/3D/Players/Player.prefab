@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 8860770205380869045}
   - component: {fileID: 2543376474780691111}
   - component: {fileID: 7391650393667093077}
+  - component: {fileID: 4137640597608116506}
+  - component: {fileID: 6521488163616911689}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -194,6 +196,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a788f80f780528044b6e3dda24cc516e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prompMessage: {fileID: 0}
+--- !u!114 &4137640597608116506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358148589767507257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dde231e6c14e554398c3ad825b7be38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHeal: 5000
+  chipSpeed: 2
+  fontHealBar: {fileID: 0}
+  backHealBar: {fileID: 0}
+  frontHeart: {fileID: 0}
+  txtHeal: {fileID: 0}
+  txtHealAmount: {fileID: 0}
+--- !u!114 &6521488163616911689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358148589767507257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b3bfd1f282cb34eb6d59032af34482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxMana: 3500.81
+  chipSpeed: 5
+  frontManaBar: {fileID: 0}
+  backManaBar: {fileID: 0}
+  txtManaAmount: {fileID: 0}
 --- !u!1 &4862635155403483822
 GameObject:
   m_ObjectHideFlags: 0
